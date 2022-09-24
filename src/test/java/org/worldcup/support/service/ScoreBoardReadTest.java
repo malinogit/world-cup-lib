@@ -5,9 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ScoreBoardSuppTest {
-
-    private final ScoreBoardSupp scoreBoardSupp = new ScoreBoardSuppImpl();
+public class ScoreBoardReadTest {
 
     @Test
     @DisplayName("Initial test")

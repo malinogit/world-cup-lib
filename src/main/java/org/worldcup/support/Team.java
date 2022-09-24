@@ -1,8 +1,8 @@
-package org.worldcup.support.model;
+package org.worldcup.support;
 
 import java.util.List;
 
-public class Team {
+class Team {
     private String name;
     private Integer score;
 }
