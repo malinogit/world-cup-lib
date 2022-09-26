@@ -21,7 +21,7 @@ public class WorldCupUtilsUpdateGameTest {
     }
 
     @Test
-    @DisplayName("Correctly updating two games")
+    @DisplayName("Correctly updating two home teams")
     public void testUpdateGameCorrect1() throws Exception {
         //given
         String homeTeam1 = "Poland";
@@ -44,6 +44,33 @@ public class WorldCupUtilsUpdateGameTest {
         assertEquals(teamScore1, game1.getHomeTeamScore());
 
         Game game2 = worldCup.getCurrentPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(homeTeam2)).findFirst().orElse(null);
+        assertNotNull(game2);
+        assertEquals(teamScore2, game2.getHomeTeamScore());
+    }
+    @Test
+    @DisplayName("Correctly updating two away teams")
+    public void testUpdateGameCorrect2() throws Exception {
+        //given
+        String homeTeam1 = "Poland";
+        String awayTeam1 = "France";
+        Integer teamScore1 = 3;
+
+        String homeTeam2 = "Lithuania";
+        String awayTeam2 = "Latvia";
+        Integer teamScore2 = 3;
+
+        //when
+        WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
+        WorldCupUtils.updateScore(worldCup, awayTeam1, teamScore1);
+        WorldCupUtils.startGame(worldCup, homeTeam2, awayTeam2);
+        WorldCupUtils.updateScore(worldCup, awayTeam2, teamScore2);
+
+        //then
+        Game game1 = worldCup.getCurrentPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(awayTeam1)).findFirst().orElse(null);
+        assertNotNull(game1);
+        assertEquals(teamScore1, game1.getHomeTeamScore());
+
+        Game game2 = worldCup.getCurrentPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(awayTeam2)).findFirst().orElse(null);
         assertNotNull(game2);
         assertEquals(teamScore2, game2.getHomeTeamScore());
     }
