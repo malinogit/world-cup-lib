@@ -3,8 +3,8 @@ package org.worldcup.support;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.worldcup.support.exceptions.AlreadyAddedException;
-import org.worldcup.support.exceptions.NoParametersException;
+import org.worldcup.support.exceptions.NoParamsExceptions;
+import org.worldcup.support.exceptions.WrongParamsException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,7 +58,7 @@ public class WorldCupUtilsStartGameTest {
         //given
         String homeTeam1 = "Poland";
         String awayTeam1 = "France";
-        assertThrows(NoParametersException.class, () -> WorldCupUtils.startGame(null, homeTeam1, awayTeam1) );
+        assertThrows(NoParamsExceptions.class, () -> WorldCupUtils.startGame(null, homeTeam1, awayTeam1) );
     }
 
     @Test
@@ -67,7 +67,7 @@ public class WorldCupUtilsStartGameTest {
         //given
         String homeTeam1 = null;
         String awayTeam1 = "France";
-        assertThrows(NoParametersException.class, () -> WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1) );
+        assertThrows(NoParamsExceptions.class, () -> WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1) );
     }
 
     @Test
@@ -76,7 +76,7 @@ public class WorldCupUtilsStartGameTest {
         //given
         String homeTeam1 = "";
         String awayTeam1 = "France";
-        assertThrows(NoParametersException.class, () -> WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1) );
+        assertThrows(NoParamsExceptions.class, () -> WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1) );
     }
 
     @Test
@@ -85,7 +85,7 @@ public class WorldCupUtilsStartGameTest {
         //given
         String homeTeam1 = "Poland";
         String awayTeam1 = null;
-        assertThrows(NoParametersException.class, () -> WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1) );
+        assertThrows(NoParamsExceptions.class, () -> WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1) );
     }
 
     @Test
@@ -94,9 +94,8 @@ public class WorldCupUtilsStartGameTest {
         //given
         String homeTeam1 = "Poland";
         String awayTeam1 = "";
-        assertThrows(NoParametersException.class, () -> WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1) );
+        assertThrows(NoParamsExceptions.class, () -> WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1) );
     }
-
 
     @Test
     @DisplayName("Trying to add already running game")
@@ -108,7 +107,20 @@ public class WorldCupUtilsStartGameTest {
         //when
         WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
 
-        assertThrows(AlreadyAddedException.class, () -> WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1) );
+        assertThrows(WrongParamsException.class, () -> WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1) );
+    }
+
+    @Test
+    @DisplayName("Trying to add two same teams")
+    public void testStartGameError7() throws Exception {
+        //given
+        String homeTeam1 = "Poland";
+        String awayTeam1 = "Poland";
+
+        //when
+        WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
+
+        assertThrows(WrongParamsException.class, () -> WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1) );
     }
 
 }

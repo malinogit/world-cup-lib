@@ -3,10 +3,8 @@ package org.worldcup.support;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.worldcup.support.exceptions.AlreadyAddedException;
-import org.worldcup.support.exceptions.NegativeNumberException;
-import org.worldcup.support.exceptions.NoParametersException;
-import org.worldcup.support.exceptions.WrongTeamException;
+import org.worldcup.support.exceptions.WrongParamsException;
+import org.worldcup.support.exceptions.NoParamsExceptions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,7 +56,7 @@ public class WorldCupUtilsUpdateGameTest {
         String awayTeam1 = "France";
         Integer teamScore1 = 2;
         WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
-        assertThrows(NoParametersException.class, () -> WorldCupUtils.updateScore(null, homeTeam1, teamScore1));
+        assertThrows(NoParamsExceptions.class, () -> WorldCupUtils.updateScore(null, homeTeam1, teamScore1));
     }
 
     @Test
@@ -69,7 +67,7 @@ public class WorldCupUtilsUpdateGameTest {
         String awayTeam1 = "France";
         Integer teamScore1 = 2;
         WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
-        assertThrows(NoParametersException.class, () -> WorldCupUtils.updateScore(worldCup, null, teamScore1));
+        assertThrows(NoParamsExceptions.class, () -> WorldCupUtils.updateScore(worldCup, null, teamScore1));
     }
 
     @Test
@@ -80,7 +78,7 @@ public class WorldCupUtilsUpdateGameTest {
         String awayTeam1 = "France";
         Integer teamScore1 = 2;
         WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
-        assertThrows(NoParametersException.class, () -> WorldCupUtils.updateScore(worldCup, homeTeam1, null));
+        assertThrows(NoParamsExceptions.class, () -> WorldCupUtils.updateScore(worldCup, homeTeam1, null));
     }
 
     @Test
@@ -92,7 +90,7 @@ public class WorldCupUtilsUpdateGameTest {
         Integer teamScore1 = 2;
         String homeTeam2 = "Lithuania";
         WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
-        assertThrows(WrongTeamException.class, () -> WorldCupUtils.updateScore(worldCup, homeTeam2, teamScore1));
+        assertThrows(WrongParamsException.class, () -> WorldCupUtils.updateScore(worldCup, homeTeam2, teamScore1));
     }
 
     @Test
@@ -103,7 +101,7 @@ public class WorldCupUtilsUpdateGameTest {
         String awayTeam1 = "France";
         Integer teamScore1 = -2;
         WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
-        assertThrows(NegativeNumberException.class, () -> WorldCupUtils.updateScore(worldCup, homeTeam1, teamScore1));
+        assertThrows(WrongParamsException.class, () -> WorldCupUtils.updateScore(worldCup, homeTeam1, teamScore1));
     }
 
 
