@@ -1,55 +1,54 @@
 package org.worldcup.support;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class WorldCupUtils {
 
 
     /**
+     *
+     * Start game between two teams
+     *
      * @param worldCup world cup object
-     * @param team1 first team participating in game
-     * @param team2 second team participating in game
+     * @param homeTeam home team participating in game
+     * @param awayTeam away team participating in game
      */
-    public static void startGame(WorldCup worldCup, String team1, String team2) {
+    public static void startGame(WorldCup worldCup, String homeTeam, String awayTeam) {
 
     }
 
     /**
+     *
+     * Update running game between two teams
+     *
      * @param worldCup world cup object
-     * @param team team that score goal
+     * @param homeTeamScore set home team score
+     * @param awayTeamScore set away team score
      */
-    public static void addGoal(WorldCup worldCup, String team) {
+    public static void updateScore(WorldCup worldCup, Integer homeTeamScore, Integer awayTeamScore) {
 
     }
 
     /**
+     *
+     * Finish running game between two teams
+     *
      * @param worldCup world cup object
-     * @param team team that goal needs to be taken back
+     * @param homeTeam home team participating in game
+     * @param awayTeam away team participating in game
      */
-    public static void removeGoal(WorldCup worldCup, String team) {
+    public static void finishGame(WorldCup worldCup, String homeTeam, String awayTeam) {
 
     }
 
     /**
+     *
      * @param worldCup world cup object
-     * @return display currently running games
+     * @return summary of games by total score
      */
-    public static String gamesInProgress(WorldCup worldCup) {
-        return "";
-    }
-
-    /**
-     * @param worldCup world cup object
-     * @param team1
-     * @param team2
-     */
-    public static void endGame(WorldCup worldCup, String team1, String team2) {
-
-    }
-
-    /**
-     * @param worldCup world cup object
-     * @return displaying full score board of Football World Cup
-     */
-    public static String scoreBoard(WorldCup worldCup) {
-        return "";
+    public static List<Game> summaryOfGames(WorldCup worldCup) {
+        return Collections.emptyList();
     }
 }
