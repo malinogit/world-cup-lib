@@ -20,13 +20,13 @@ public class WorldCupUtils {
 
     /**
      *
-     * Update running game between two teams
+     * Update score of team that currently playing
      *
      * @param worldCup world cup object
-     * @param homeTeamScore set home team score
-     * @param awayTeamScore set away team score
+     * @param teamName select which team score need to be updated
+     * @param teamScore set team score
      */
-    public static void updateScore(WorldCup worldCup, Integer homeTeamScore, Integer awayTeamScore) {
+    public static void updateScore(WorldCup worldCup, String teamName, Integer teamScore) {
 
     }
 
