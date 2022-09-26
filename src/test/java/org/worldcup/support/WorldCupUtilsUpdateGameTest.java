@@ -68,11 +68,11 @@ public class WorldCupUtilsUpdateGameTest {
         //then
         Game game1 = worldCup.getCurrentPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(awayTeam1)).findFirst().orElse(null);
         assertNotNull(game1);
-        assertEquals(teamScore1, game1.getHomeTeamScore());
+        assertEquals(teamScore1, game1.getAwayTeamScore());
 
         Game game2 = worldCup.getCurrentPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(awayTeam2)).findFirst().orElse(null);
         assertNotNull(game2);
-        assertEquals(teamScore2, game2.getHomeTeamScore());
+        assertEquals(teamScore2, game2.getAwayTeamScore());
     }
 
     @Test
