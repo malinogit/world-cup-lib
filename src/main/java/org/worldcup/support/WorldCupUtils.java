@@ -15,8 +15,7 @@ public class WorldCupUtils {
      * @param homeTeam home team participating in game
      * @param awayTeam away team participating in game
      */
-    public static void startGame(WorldCup worldCup, String homeTeam, String awayTeam) {
-
+    public static void startGame(WorldCup worldCup, String homeTeam, String awayTeam) throws Exception {
     }
 
     /**
