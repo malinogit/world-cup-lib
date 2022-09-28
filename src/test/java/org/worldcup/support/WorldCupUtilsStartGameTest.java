@@ -28,13 +28,13 @@ public class WorldCupUtilsStartGameTest {
         String awayTeam = "France";
 
         //when
-        assertEquals(0, worldCup.getCurrentPlayingTeams().size());
+        assertEquals(0, worldCup.getCurrentlyPlayingTeams().size());
 
         WorldCupUtils.startGame(worldCup, homeTeam, awayTeam);
 
         //then
-        assertEquals(1, worldCup.getCurrentPlayingTeams().size());
-        Game game = worldCup.getCurrentPlayingTeams().stream().findAny().orElse(null);
+        assertEquals(1, worldCup.getCurrentlyPlayingTeams().size());
+        Game game = worldCup.getCurrentlyPlayingTeams().stream().findAny().orElse(null);
         assertNotNull(game);
         assertEquals(homeTeam, game.getHomeTeam());
         assertEquals(awayTeam, game.getAwayTeam());
@@ -55,7 +55,7 @@ public class WorldCupUtilsStartGameTest {
         WorldCupUtils.startGame(worldCup, homeTeam2, awayTeam2);
 
         //then
-        assertEquals(2, worldCup.getCurrentPlayingTeams().size());
+        assertEquals(2, worldCup.getCurrentlyPlayingTeams().size());
     }
 
     @Test
@@ -123,9 +123,7 @@ public class WorldCupUtilsStartGameTest {
         String homeTeam1 = "Poland";
         String awayTeam1 = "Poland";
 
-        //when
-        WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
-
+        //then
         assertThrows(WrongParamsException.class, () -> WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1) );
     }
 

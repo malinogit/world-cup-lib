@@ -34,13 +34,13 @@ public class WorldCupUtilsFinishGameTest {
         WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
         WorldCupUtils.startGame(worldCup, homeTeam2, awayTeam2);
 
-        assertEquals(2, worldCup.getCurrentPlayingTeams().size());
+        assertEquals(2, worldCup.getCurrentlyPlayingTeams().size());
         assertEquals(0, worldCup.getCompletedGames().size());
 
         WorldCupUtils.finishGame(worldCup, homeTeam1, awayTeam1);
         WorldCupUtils.finishGame(worldCup, homeTeam2, awayTeam2);
 
-        assertEquals(0, worldCup.getCurrentPlayingTeams().size());
+        assertEquals(0, worldCup.getCurrentlyPlayingTeams().size());
         assertEquals(2, worldCup.getCompletedGames().size());
     }
 

@@ -3,9 +3,13 @@ package org.worldcup.support;
 import java.time.OffsetDateTime;
 
 class Game implements Comparable<Game> {
+    public Game(String homeTeam, String awayTeam) {
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+    }
 
     private String homeTeam;
-    private String AwayTeam;
+    private String awayTeam;
     private Integer homeTeamScore = 0;
     private Integer awayTeamScore = 0;
     private final OffsetDateTime offsetDateTime = OffsetDateTime.now();
@@ -17,7 +21,7 @@ class Game implements Comparable<Game> {
     }
 
     public String getAwayTeam() {
-        return AwayTeam;
+        return awayTeam;
     }
 
     public Integer getHomeTeamScore() {
@@ -32,7 +36,7 @@ class Game implements Comparable<Game> {
     }
 
     public String gameSummary() {
-        return gameOrderByScoreNumber + ". " + homeTeam  + " " + homeTeamScore + " - " + AwayTeam + " " + awayTeamScore;
+        return gameOrderByScoreNumber + ". " + homeTeam  + " " + homeTeamScore + " - " + awayTeam + " " + awayTeamScore;
     }
 
     void setHomeTeam(String homeTeam) {
@@ -40,7 +44,7 @@ class Game implements Comparable<Game> {
     }
 
     void setAwayTeam(String awayTeam) {
-        AwayTeam = awayTeam;
+        this.awayTeam = awayTeam;
     }
 
     void setHomeTeamScore(Integer homeTeamScore) {

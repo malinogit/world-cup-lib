@@ -39,11 +39,11 @@ public class WorldCupUtilsUpdateGameTest {
         WorldCupUtils.updateScore(worldCup, homeTeam2, teamScore2);
 
         //then
-        Game game1 = worldCup.getCurrentPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(homeTeam1)).findFirst().orElse(null);
+        Game game1 = worldCup.getCurrentlyPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(homeTeam1)).findFirst().orElse(null);
         assertNotNull(game1);
         assertEquals(teamScore1, game1.getHomeTeamScore());
 
-        Game game2 = worldCup.getCurrentPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(homeTeam2)).findFirst().orElse(null);
+        Game game2 = worldCup.getCurrentlyPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(homeTeam2)).findFirst().orElse(null);
         assertNotNull(game2);
         assertEquals(teamScore2, game2.getHomeTeamScore());
     }
@@ -66,11 +66,11 @@ public class WorldCupUtilsUpdateGameTest {
         WorldCupUtils.updateScore(worldCup, awayTeam2, teamScore2);
 
         //then
-        Game game1 = worldCup.getCurrentPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(awayTeam1)).findFirst().orElse(null);
+        Game game1 = worldCup.getCurrentlyPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(awayTeam1)).findFirst().orElse(null);
         assertNotNull(game1);
         assertEquals(teamScore1, game1.getAwayTeamScore());
 
-        Game game2 = worldCup.getCurrentPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(awayTeam2)).findFirst().orElse(null);
+        Game game2 = worldCup.getCurrentlyPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(awayTeam2)).findFirst().orElse(null);
         assertNotNull(game2);
         assertEquals(teamScore2, game2.getAwayTeamScore());
     }

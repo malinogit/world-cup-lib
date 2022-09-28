@@ -1,12 +1,13 @@
 package org.worldcup.support;
 
-import java.util.Collection;
+import org.worldcup.support.exceptions.NoParamsExceptions;
+
 import java.util.Collections;
 import java.util.List;
 
 public class WorldCupUtils {
 
-
+    private static final WorldCupValidator validator = new WorldCupValidator();
     /**
      *
      * Start game between two teams
@@ -16,6 +17,9 @@ public class WorldCupUtils {
      * @param awayTeam away team participating in game
      */
     public static void startGame(WorldCup worldCup, String homeTeam, String awayTeam) throws Exception {
+        validator.validateStartGame(worldCup, homeTeam, awayTeam);
+        Game game = new Game(homeTeam, awayTeam);
+        worldCup.getCurrentlyPlayingTeams().add(game);
     }
 
     /**
