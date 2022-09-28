@@ -3,8 +3,8 @@ package org.worldcup.support;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.worldcup.support.exceptions.GameNotFoundException;
 import org.worldcup.support.exceptions.NoParamsExceptions;
-import org.worldcup.support.exceptions.WrongParamsException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -83,7 +83,7 @@ public class WorldCupUtilsFinishGameTest {
         String awayTeam1 = "France";
         String homeTeam2 = "Lithuania";
         WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
-        assertThrows(WrongParamsException.class, () -> WorldCupUtils.finishGame(worldCup, homeTeam1, homeTeam2));
+        assertThrows(GameNotFoundException.class, () -> WorldCupUtils.finishGame(worldCup, homeTeam1, homeTeam2));
     }
 
 }

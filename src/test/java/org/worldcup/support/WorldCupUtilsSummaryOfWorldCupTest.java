@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.worldcup.support.exceptions.NoParamsExceptions;
-import org.worldcup.support.exceptions.WrongParamsException;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * tests for method summaryOfGames()
  */
-public class WorldCupUtilsSummaryOfGamesTest {
+public class WorldCupUtilsSummaryOfWorldCupTest {
 
     private WorldCup worldCup;
 
@@ -24,7 +23,7 @@ public class WorldCupUtilsSummaryOfGamesTest {
 
     @Test
     @DisplayName("Correctly returns of world cup")
-    public void testFinishGameCorrect1() throws Exception {
+    public void testSummaryCorrect2() throws Exception {
         //given
         String homeTeam1 = "Poland";
         String awayTeam1 = "France";
@@ -68,7 +67,7 @@ public class WorldCupUtilsSummaryOfGamesTest {
         WorldCupUtils.finishGame(worldCup, homeTeam3, awayTeam3);
         WorldCupUtils.finishGame(worldCup, homeTeam4, awayTeam4);
 
-        List<Game> summary = WorldCupUtils.summaryOfGames(worldCup);
+        List<Game> summary = WorldCupUtils.summaryOfWorldCup(worldCup);
 
         //then
         assertEquals(4, summary.size());
@@ -83,6 +82,17 @@ public class WorldCupUtilsSummaryOfGamesTest {
         assertEquals(3, game4.getGameOrderByScoreNumber());
 
         assertEquals("4. Poland 1 - France 1", game1.gameSummary());
+    }
+
+    @Test
+    @DisplayName("Parameter worldCup is null for summary")
+    public void testSummaryError1() throws Exception {
+        //given
+        String homeTeam1 = "Poland";
+        String awayTeam1 = "France";
+        Integer teamScore1 = 2;
+        WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
+        assertThrows(NoParamsExceptions.class, () -> WorldCupUtils.summaryOfWorldCup(worldCup));
     }
 
 }
