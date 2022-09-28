@@ -20,25 +20,46 @@ class Game implements Comparable<Game> {
     private Integer gameOrderByScoreNumber;
 
 
+    /**
+     * @return home team name
+     */
     public String getHomeTeam() {
         return homeTeam;
     }
 
+    /**
+     * @return away team name
+     */
     public String getAwayTeam() {
         return awayTeam;
     }
 
+    /**
+     * @return home team score
+     */
     public Integer getHomeTeamScore() {
         return homeTeamScore;
     }
 
+
+    /**
+     * @return home team score
+     */
     public Integer getAwayTeamScore() {
         return awayTeamScore;
     }
+
+
+    /**
+     * @return place that sum of team scores gives
+     */
     public Integer getGameOrderByScoreNumber() {
         return gameOrderByScoreNumber;
     }
 
+    /**
+     * @return text summary of selected team
+     */
     public String gameSummary() {
         return gameOrderByScoreNumber + ". " + homeTeam  + " " + homeTeamScore + " - " + awayTeam + " " + awayTeamScore;
     }

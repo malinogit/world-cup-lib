@@ -59,6 +59,7 @@ public class WorldCupUtilsSummaryOfWorldCupTest {
 
         List<Game> summary = WorldCupUtils.summaryOfWorldCup(worldCup);
 
+
         //then
         assertEquals(3, summary.size());
         Game game1 = summary.stream().filter(x -> homeTeam1.equals(x.getHomeTeam())).findFirst().orElseThrow(() -> new Exception("Error in adding teams"));

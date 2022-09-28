@@ -4,7 +4,6 @@ import org.worldcup.support.exceptions.GameNotFoundException;
 import org.worldcup.support.exceptions.InnerException;
 import org.worldcup.support.exceptions.NoParamsExceptions;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,6 +70,7 @@ public class WorldCupUtils {
 
         worldCup.getCurrentlyPlayingTeams().remove(game);
         worldCup.getCompletedGames().add(game);
+        calculatePlaceForTeams(worldCup);
     }
 
     /**
@@ -80,14 +80,10 @@ public class WorldCupUtils {
      */
     public static List<Game> summaryOfWorldCup(WorldCup worldCup) throws Exception {
         validator.validateSummaryOfWorldCup(worldCup);
-        List<Game> result = calculatePlaceForTeams(worldCup);
-        if (result.size() != worldCup.getCompletedGames().size()) {
-            throw new InnerException("Error in calculating summary");
-        }
-        return result;
+        return worldCup.getCompletedGames().stream().sorted().collect(Collectors.toList());
     }
 
-    private static List<Game> calculatePlaceForTeams(WorldCup worldCup) throws NoParamsExceptions {
+    private static void calculatePlaceForTeams(WorldCup worldCup) throws NoParamsExceptions {
         if (worldCup == null) {
             throw new NoParamsExceptions("No parameter worldCup");
         }
@@ -101,6 +97,5 @@ public class WorldCupUtils {
         for (int i = 1; i <= sortedList.size(); i++) {
             sortedList.get(i - 1).setGameOrderByScoreNumber(i);
         }
-        return sortedList;
     }
 }

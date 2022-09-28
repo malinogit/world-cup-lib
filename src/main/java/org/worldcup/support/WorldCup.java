@@ -11,8 +11,9 @@ public class WorldCup {
         this.completedGames = new LinkedList<>();
     }
 
-    private List<Game> currentlyPlayingTeams;
-    private List<Game> completedGames;
+    private final List<Game> currentlyPlayingTeams;
+
+    private final List<Game> completedGames;
 
     List<Game> getCurrentlyPlayingTeams() {
         return currentlyPlayingTeams;
