@@ -3,6 +3,7 @@ package org.worldcup.support;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.worldcup.support.exceptions.GameNotFoundException;
 import org.worldcup.support.exceptions.WrongParamsException;
 import org.worldcup.support.exceptions.NoParamsExceptions;
 
@@ -66,11 +67,11 @@ public class WorldCupUtilsUpdateGameTest {
         WorldCupUtils.updateScore(worldCup, awayTeam2, teamScore2);
 
         //then
-        Game game1 = worldCup.getCurrentlyPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(awayTeam1)).findFirst().orElse(null);
+        Game game1 = worldCup.getCurrentlyPlayingTeams().stream().filter(x -> x.getAwayTeam().equals(awayTeam1)).findFirst().orElse(null);
         assertNotNull(game1);
         assertEquals(teamScore1, game1.getAwayTeamScore());
 
-        Game game2 = worldCup.getCurrentlyPlayingTeams().stream().filter(x -> x.getHomeTeam().equals(awayTeam2)).findFirst().orElse(null);
+        Game game2 = worldCup.getCurrentlyPlayingTeams().stream().filter(x -> x.getAwayTeam().equals(awayTeam2)).findFirst().orElse(null);
         assertNotNull(game2);
         assertEquals(teamScore2, game2.getAwayTeamScore());
     }
@@ -117,7 +118,7 @@ public class WorldCupUtilsUpdateGameTest {
         Integer teamScore1 = 2;
         String homeTeam2 = "Lithuania";
         WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
-        assertThrows(WrongParamsException.class, () -> WorldCupUtils.updateScore(worldCup, homeTeam2, teamScore1));
+        assertThrows(GameNotFoundException.class, () -> WorldCupUtils.updateScore(worldCup, homeTeam2, teamScore1));
     }
 
     @Test

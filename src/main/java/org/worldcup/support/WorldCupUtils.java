@@ -1,5 +1,6 @@
 package org.worldcup.support;
 
+import org.worldcup.support.exceptions.GameNotFoundException;
 import org.worldcup.support.exceptions.NoParamsExceptions;
 
 import java.util.Collections;
@@ -30,8 +31,20 @@ public class WorldCupUtils {
      * @param teamName select which team score need to be updated
      * @param teamScore set team score
      */
-    public static void updateScore(WorldCup worldCup, String teamName, Integer teamScore) {
+    public static void updateScore(WorldCup worldCup, String teamName, Integer teamScore) throws Exception {
+        validator.validateUpdateGame(worldCup, teamName, teamScore);
 
+        Game game = worldCup.getCurrentlyPlayingTeams().stream()
+                .filter(g -> g.getHomeTeam().equals(teamName) || g.getAwayTeam().equals(teamName))
+                .findAny()
+                .orElseThrow(() -> new GameNotFoundException("Team " + teamName + " is not playing right now"));
+
+        if (game.getHomeTeam().equals(teamName)) {
+            game.setHomeTeamScore(teamScore);
+        }
+        if (game.getAwayTeam().equals(teamName)) {
+            game.setAwayTeamScore(teamScore);
+        }
     }
 
     /**
@@ -42,7 +55,7 @@ public class WorldCupUtils {
      * @param homeTeam home team participating in game
      * @param awayTeam away team participating in game
      */
-    public static void finishGame(WorldCup worldCup, String homeTeam, String awayTeam) {
+    public static void finishGame(WorldCup worldCup, String homeTeam, String awayTeam) throws Exception {
 
     }
 
@@ -51,7 +64,7 @@ public class WorldCupUtils {
      * @param worldCup world cup object
      * @return summary of games by total score
      */
-    public static List<Game> summaryOfGames(WorldCup worldCup) {
+    public static List<Game> summaryOfGames(WorldCup worldCup) throws Exception {
         return Collections.emptyList();
     }
 }
