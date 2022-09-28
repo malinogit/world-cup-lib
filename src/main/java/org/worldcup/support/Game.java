@@ -31,7 +31,7 @@ class Game implements Comparable<Game> {
         return gameOrderByScoreNumber;
     }
 
-    public String gameStats() {
+    public String gameSummary() {
         return gameOrderByScoreNumber + ". " + homeTeam  + " " + homeTeamScore + " - " + AwayTeam + " " + awayTeamScore;
     }
 

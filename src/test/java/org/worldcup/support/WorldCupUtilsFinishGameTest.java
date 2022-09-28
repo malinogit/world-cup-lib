@@ -9,7 +9,7 @@ import org.worldcup.support.exceptions.WrongParamsException;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * tests for method startGame()
+ * tests for method finishGame()
  */
 public class WorldCupUtilsFinishGameTest {
 
