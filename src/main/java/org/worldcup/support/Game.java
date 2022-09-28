@@ -1,18 +1,22 @@
 package org.worldcup.support;
 
 import java.time.OffsetDateTime;
+import java.util.Objects;
 
 class Game implements Comparable<Game> {
     public Game(String homeTeam, String awayTeam) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        this.offsetDateTime = OffsetDateTime.now();
+        this.homeTeamScore = 0;
+        this.awayTeamScore = 0;
     }
 
     private String homeTeam;
     private String awayTeam;
-    private Integer homeTeamScore = 0;
-    private Integer awayTeamScore = 0;
-    private final OffsetDateTime offsetDateTime = OffsetDateTime.now();
+    private Integer homeTeamScore;
+    private Integer awayTeamScore;
+    private final OffsetDateTime offsetDateTime;
     private Integer gameOrderByScoreNumber;
 
 
@@ -39,6 +43,24 @@ class Game implements Comparable<Game> {
         return gameOrderByScoreNumber + ". " + homeTeam  + " " + homeTeamScore + " - " + awayTeam + " " + awayTeamScore;
     }
 
+    @Override
+    public int compareTo(Game o) {
+        return o.gameOrderByScoreNumber - this.gameOrderByScoreNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return Objects.equals(homeTeam, game.homeTeam) && Objects.equals(awayTeam, game.awayTeam) && Objects.equals(homeTeamScore, game.homeTeamScore) && Objects.equals(awayTeamScore, game.awayTeamScore) && Objects.equals(offsetDateTime, game.offsetDateTime) && Objects.equals(gameOrderByScoreNumber, game.gameOrderByScoreNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(homeTeam, awayTeam, homeTeamScore, awayTeamScore, offsetDateTime, gameOrderByScoreNumber);
+    }
+
     void setHomeTeam(String homeTeam) {
         this.homeTeam = homeTeam;
     }
@@ -61,10 +83,5 @@ class Game implements Comparable<Game> {
 
     void setGameOrderByScoreNumber(Integer gameOrderByScoreNumber) {
         this.gameOrderByScoreNumber = gameOrderByScoreNumber;
-    }
-
-    @Override
-    public int compareTo(Game o) {
-        return o.gameOrderByScoreNumber - this.gameOrderByScoreNumber;
     }
 }

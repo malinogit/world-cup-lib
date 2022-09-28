@@ -1,10 +1,12 @@
 package org.worldcup.support;
 
 import org.worldcup.support.exceptions.GameNotFoundException;
+import org.worldcup.support.exceptions.InnerException;
 import org.worldcup.support.exceptions.NoParamsExceptions;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class WorldCupUtils {
 
@@ -56,7 +58,19 @@ public class WorldCupUtils {
      * @param awayTeam away team participating in game
      */
     public static void finishGame(WorldCup worldCup, String homeTeam, String awayTeam) throws Exception {
+        validator.validateFinishGame(worldCup, homeTeam, awayTeam);
 
+        Game game = worldCup.getCurrentlyPlayingTeams().stream()
+                .filter(g ->
+                        (g.getHomeTeam().equals(homeTeam) && g.getAwayTeam().equals(awayTeam))
+                        ||
+                        (g.getHomeTeam().equals(awayTeam) && g.getAwayTeam().equals(homeTeam))
+                )
+                .findAny()
+                .orElseThrow(() -> new GameNotFoundException("Game between teams: " + homeTeam + " and " + awayTeam + "isn't running"));
+
+        worldCup.getCurrentlyPlayingTeams().remove(game);
+        worldCup.getCompletedGames().add(game);
     }
 
     /**
@@ -64,7 +78,29 @@ public class WorldCupUtils {
      * @param worldCup world cup object
      * @return summary of games by total score
      */
-    public static List<Game> summaryOfGames(WorldCup worldCup) throws Exception {
-        return Collections.emptyList();
+    public static List<Game> summaryOfWorldCup(WorldCup worldCup) throws Exception {
+        validator.validateSummaryOfWorldCup(worldCup);
+        List<Game> result = calculatePlaceForTeams(worldCup);
+        if (result.size() != worldCup.getCompletedGames().size()) {
+            throw new InnerException("Error in calculating summary");
+        }
+        return result;
+    }
+
+    private static List<Game> calculatePlaceForTeams(WorldCup worldCup) throws NoParamsExceptions {
+        if (worldCup == null) {
+            throw new NoParamsExceptions("No parameter worldCup");
+        }
+        List<Game> sortedList = worldCup.getCompletedGames().stream().sorted((g2, g1) -> {
+            int x = Integer.compare(g1.getHomeTeamScore() + g1.getAwayTeamScore(), g2.getHomeTeamScore() + g2.getAwayTeamScore());
+            if (x == 0) {
+                return g1.getOffsetDateTime().compareTo(g2.getOffsetDateTime());
+            }
+            return x;
+        }).collect(Collectors.toList());
+        for (int i = 1; i <= sortedList.size(); i++) {
+            sortedList.get(i - 1).setGameOrderByScoreNumber(i);
+        }
+        return sortedList;
     }
 }

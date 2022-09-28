@@ -23,7 +23,7 @@ public class WorldCupUtilsSummaryOfWorldCupTest {
 
     @Test
     @DisplayName("Correctly returns of world cup")
-    public void testSummaryCorrect2() throws Exception {
+    public void testSummaryCorrect1() throws Exception {
         //given
         String homeTeam1 = "Poland";
         String awayTeam1 = "France";
@@ -40,11 +40,6 @@ public class WorldCupUtilsSummaryOfWorldCupTest {
         Integer teamScore31 = 2;
         Integer teamScore32 = 1;
 
-        String homeTeam4 = "Germany";
-        String awayTeam4 = "Georgia";
-        Integer teamScore41 = 2;
-        Integer teamScore42 = 0;
-
         //when
         WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
         WorldCupUtils.updateScore(worldCup, homeTeam1, teamScore11);
@@ -58,41 +53,65 @@ public class WorldCupUtilsSummaryOfWorldCupTest {
         WorldCupUtils.updateScore(worldCup, homeTeam3, teamScore31);
         WorldCupUtils.updateScore(worldCup, awayTeam3, teamScore32);
 
-        WorldCupUtils.startGame(worldCup, homeTeam4, awayTeam4);
-        WorldCupUtils.updateScore(worldCup, homeTeam4, teamScore41);
-        WorldCupUtils.updateScore(worldCup, awayTeam4, teamScore42);
-
         WorldCupUtils.finishGame(worldCup, homeTeam1, awayTeam1);
         WorldCupUtils.finishGame(worldCup, homeTeam2, awayTeam2);
         WorldCupUtils.finishGame(worldCup, homeTeam3, awayTeam3);
-        WorldCupUtils.finishGame(worldCup, homeTeam4, awayTeam4);
 
         List<Game> summary = WorldCupUtils.summaryOfWorldCup(worldCup);
 
         //then
-        assertEquals(4, summary.size());
+        assertEquals(3, summary.size());
         Game game1 = summary.stream().filter(x -> homeTeam1.equals(x.getHomeTeam())).findFirst().orElseThrow(() -> new Exception("Error in adding teams"));
         Game game2 = summary.stream().filter(x -> homeTeam2.equals(x.getHomeTeam())).findFirst().orElseThrow(() -> new Exception("Error in adding teams"));
         Game game3 = summary.stream().filter(x -> homeTeam3.equals(x.getHomeTeam())).findFirst().orElseThrow(() -> new Exception("Error in adding teams"));
-        Game game4 = summary.stream().filter(x -> homeTeam4.equals(x.getHomeTeam())).findFirst().orElseThrow(() -> new Exception("Error in adding teams"));
 
-        assertEquals(4, game1.getGameOrderByScoreNumber());
+        assertEquals(3, game1.getGameOrderByScoreNumber());
         assertEquals(1, game2.getGameOrderByScoreNumber());
         assertEquals(2, game3.getGameOrderByScoreNumber());
-        assertEquals(3, game4.getGameOrderByScoreNumber());
 
-        assertEquals("4. Poland 1 - France 1", game1.gameSummary());
+        assertEquals("3. Poland 1 - France 1", game1.gameSummary());
+    }
+
+    @Test
+    @DisplayName("Correctly comparing two game with same score")
+    public void testSummaryCorrect2() throws Exception {
+        //given
+        String homeTeam1 = "Poland";
+        String awayTeam1 = "France";
+        Integer teamScore11 = 1;
+        Integer teamScore12 = 1;
+
+        String homeTeam2 = "Lithuania";
+        String awayTeam2 = "Latvia";
+        Integer teamScore21 = 1;
+        Integer teamScore22 = 1;
+        //when
+        WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
+        WorldCupUtils.updateScore(worldCup, homeTeam1, teamScore11);
+        WorldCupUtils.updateScore(worldCup, awayTeam1, teamScore12);
+        Thread.sleep(100);
+        WorldCupUtils.startGame(worldCup, homeTeam2, awayTeam2);
+        WorldCupUtils.updateScore(worldCup, homeTeam2, teamScore21);
+        WorldCupUtils.updateScore(worldCup, awayTeam2, teamScore22);
+
+        WorldCupUtils.finishGame(worldCup, homeTeam1, awayTeam1);
+        WorldCupUtils.finishGame(worldCup, homeTeam2, awayTeam2);
+
+        List<Game> summary = WorldCupUtils.summaryOfWorldCup(worldCup);
+
+        //then
+        assertEquals(2, summary.size());
+        Game game1 = summary.stream().filter(x -> homeTeam1.equals(x.getHomeTeam())).findFirst().orElseThrow(() -> new Exception("Error in adding teams"));
+        Game game2 = summary.stream().filter(x -> homeTeam2.equals(x.getHomeTeam())).findFirst().orElseThrow(() -> new Exception("Error in adding teams"));
+
+        assertEquals(2, game1.getGameOrderByScoreNumber());
+        assertEquals(1, game2.getGameOrderByScoreNumber());
     }
 
     @Test
     @DisplayName("Parameter worldCup is null for summary")
-    public void testSummaryError1() throws Exception {
-        //given
-        String homeTeam1 = "Poland";
-        String awayTeam1 = "France";
-        Integer teamScore1 = 2;
-        WorldCupUtils.startGame(worldCup, homeTeam1, awayTeam1);
-        assertThrows(NoParamsExceptions.class, () -> WorldCupUtils.summaryOfWorldCup(worldCup));
+    public void testSummaryError1() {
+        assertThrows(NoParamsExceptions.class, () -> WorldCupUtils.summaryOfWorldCup(null));
     }
 
 }

@@ -118,7 +118,7 @@ public class WorldCupUtilsStartGameTest {
 
     @Test
     @DisplayName("Trying to add two same teams")
-    public void testStartGameError7() throws Exception {
+    public void testStartGameError7() {
         //given
         String homeTeam1 = "Poland";
         String awayTeam1 = "Poland";

@@ -1,8 +1,12 @@
 package org.worldcup.support;
 
 import org.worldcup.support.exceptions.GameNotFoundException;
+import org.worldcup.support.exceptions.InnerException;
 import org.worldcup.support.exceptions.NoParamsExceptions;
 import org.worldcup.support.exceptions.WrongParamsException;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class that validates params for methods in class WorldCupUtils
@@ -13,12 +17,25 @@ class WorldCupValidator {
         worldCupValidation(worldCup);
         teamValidation(worldCup, homeTeam);
         teamValidation(worldCup, awayTeam);
+        if (homeTeam.equals(awayTeam)) {
+            throw new WrongParamsException("Can't add same team two times");
+        }
     }
 
     void validateUpdateGame(WorldCup worldCup, String teamName, Integer teamScore) throws Exception {
         worldCupValidation(worldCup);
         teamFieldValidation(teamName);
         teamScoreValidation(teamScore);
+    }
+
+    void validateFinishGame(WorldCup worldCup, String homeTeam, String awayTeam) throws Exception {
+        worldCupValidation(worldCup);
+        teamFieldValidation(homeTeam);
+        teamFieldValidation(awayTeam);
+    }
+
+    void validateSummaryOfWorldCup(WorldCup worldCup) throws NoParamsExceptions {
+        worldCupValidation(worldCup);
     }
 
     private void teamValidation(WorldCup worldCup, String team) throws Exception {
