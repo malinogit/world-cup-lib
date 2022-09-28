@@ -28,10 +28,16 @@ public class WorldCupUtilsStartGameTest {
         String awayTeam = "France";
 
         //when
+        assertEquals(0, worldCup.getCurrentPlayingTeams().size());
+
         WorldCupUtils.startGame(worldCup, homeTeam, awayTeam);
 
         //then
         assertEquals(1, worldCup.getCurrentPlayingTeams().size());
+        Game game = worldCup.getCurrentPlayingTeams().stream().findAny().orElse(null);
+        assertNotNull(game);
+        assertEquals(homeTeam, game.getHomeTeam());
+        assertEquals(awayTeam, game.getAwayTeam());
     }
 
     @Test
