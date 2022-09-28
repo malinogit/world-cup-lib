@@ -2,14 +2,14 @@
 ##  Collection of methods to manage Football World Cup Score Board
 ### Library gives you set of methods to manage game score. <br/> The features that it's provides:
 * Classes:
-* * WorldCup - holding information about running and completed games
-* * Game - single game with game summary
-* * WorldCupUtils - service with methods that library provides
+* * <b>WorldCup</b> - holding information about running and completed games
+* * <b>Game</b> - single game with game summary
+* * <b>WorldCupUtils</b> - service with methods that library provides
 * Methods:
-* * startGame() - adding new game between two teams
-* * updateScore() - update running game between two teams
-* * finishGame() - completed game between two teams
-* * summaryOfWorldCup() - returns summary of completed games by total score
+* * <b>startGame()</b> - adding new game between two teams
+* * <b>updateScore()</b> - update running game between two teams
+* * <b>finishGame()</b> - completed game between two teams
+* * <b>summaryOfWorldCup()</b> - returns summary of completed games by total score
 
 
 
